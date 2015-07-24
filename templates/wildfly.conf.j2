@@ -1,0 +1,22 @@
+# General configuration for the init.d scripts,
+# not necessarily for JBoss AS itself.
+# default location: /etc/default/wildfly
+
+## Location of WildFly
+JBOSS_HOME="{{ wildfly_dir }}"
+
+## The username who should own the process.
+JBOSS_USER=wildfly
+
+## The mode WildFly should start, standalone or domain
+JBOSS_MODE=standalone
+
+## Configuration for standalone mode
+JBOSS_CONFIG=standalone.xml
+
+## Location to keep the console log
+JBOSS_CONSOLE_LOG="/var/log/wildfly/console.log"
+
+# Need to modify the init script to account for JBOSS_OPTS
+# Allows us to pass system properties to WildFly
+JBOSS_OPTS="-P=/etc/wildfly/wildfly.properties"

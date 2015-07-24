@@ -1,0 +1,5 @@
+---
+# handlers file for wildfly
+
+- name: restart wildfly
+  service: name=wildfly state=restarted

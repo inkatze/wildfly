@@ -1,0 +1,15 @@
+---
+
+galaxy_info:
+  author: Juan Diego Romero González
+  description: Installs Wildfly's application runtime
+  license: BSD
+  min_ansible_version: 1.9
+  platforms:
+  - name: EL
+    versions:
+    - 7
+  categories:
+  - development
+  - web
+dependencies: []
