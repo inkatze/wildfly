@@ -88,3 +88,8 @@
   template: src=version.j2 dest={{ wildfly_version_file }} owner=wildfly
             group=wildfly mode=0750
 
+# If we don't do this, there's a false changed status in the next run for some
+# reason. Try removing this task and running the role twice, it makes no sense.
+- name: Fix permission limbo
+  file: path={{ wildfly_install_dir }} owner=wildfly group=wildfly mode=0750
+        recurse=yes
