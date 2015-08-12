@@ -34,7 +34,7 @@
   when: wildfly_installed.stdout is not defined or not wildfly_installed.stdout
 
 - name: Change wildfly installation permissions
-  file: path={{ wildfly_install_dir }} owner=wildfly group=wildfly mode=0750
+  file: path={{ wildfly_dir }} owner=wildfly group=wildfly mode=0750
         recurse=yes
 
 - name: Create wildfly log directory
@@ -91,5 +91,5 @@
 # If we don't do this, there's a false changed status in the next run for some
 # reason. Try removing this task and running the role twice, it makes no sense.
 - name: Fix permission limbo
-  file: path={{ wildfly_install_dir }} owner=wildfly group=wildfly mode=0750
+  file: path={{ wildfly_dir }} owner=wildfly group=wildfly mode=0750
         recurse=yes
