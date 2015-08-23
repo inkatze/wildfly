@@ -38,7 +38,7 @@
         recurse=yes
 
 - name: Create wildfly log directory
-  file: path={{ wildfly_log_dir }} owner=wildfly group=wildfly mode=0644
+  file: path={{ wildfly_log_dir }} owner=wildfly group=wildfly mode=0755
         state=directory
 
 - name: Create wildfly etc directory
