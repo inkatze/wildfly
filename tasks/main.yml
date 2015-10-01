@@ -88,6 +88,15 @@
   template: src=version.j2 dest={{ wildfly_version_file }} owner=wildfly
             group=wildfly mode=0750
 
+# This status will always be "changed" unless skipped because it will update
+# the user after its creation.
+- name: Create management user
+  command: >
+    {{ wildfly_dir }}/bin/add-user.sh
+    {{ wildfly_management_user }} {{ wildfly_management_password }}
+  when: wildfly_management_user is defined and
+        wildfly_management_password is defined
+
 # If we don't do this, there's a false changed status in the next run for some
 # reason. Try removing this task and running the role twice, it makes no sense.
 - name: Fix permission limbo

@@ -7,7 +7,9 @@ Role Variables
 --------------
 
 It's important to change the bind addresses to localhost or internal network in
-production environments.
+production environments. The management user is also intended for
+non-production environments, so you must change these variables for production
+or undefine them and the user creation task will be skipped.
 
 Defaults:
 
@@ -34,6 +36,9 @@ Defaults:
     wildfly_management_bind_address: 0.0.0.0
     wildfly_manage_port: 9990
     wildfly_http_port: 8080
+
+    wildfly_management_user: "admin"
+    wildfly_management_password: "admin"
 
 Example Playbook
 ----------------
