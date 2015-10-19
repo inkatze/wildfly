@@ -3,6 +3,9 @@
 
 wildfly_version: 9.0.1.Final
 
+wildfly_user: wildfly
+wildfly_group: wildfly
+
 wildfly_base_download_url: http://download.jboss.org/wildfly
 wildfly_name: wildfly-{{ wildfly_version }}
 wildfly_download_file: "{{ wildfly_name }}.tar.gz"

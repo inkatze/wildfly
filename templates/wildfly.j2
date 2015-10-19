@@ -18,7 +18,7 @@ export JAVA_HOME
 
 # Load JBoss AS init.d configuration.
 if [ -z "$JBOSS_CONF" ]; then
-	JBOSS_CONF="/etc/wildfly/wildfly.conf"
+	JBOSS_CONF="{{ wildfly_conf_dir }}/wildfly.conf"
 fi
 
 [ -r "$JBOSS_CONF" ] && . "${JBOSS_CONF}"

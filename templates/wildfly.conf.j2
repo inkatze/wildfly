@@ -6,7 +6,7 @@
 JBOSS_HOME="{{ wildfly_dir }}"
 
 ## The username who should own the process.
-JBOSS_USER=wildfly
+JBOSS_USER="{{ wildfly_user }}"
 
 ## The mode WildFly should start, standalone or domain
 JBOSS_MODE=standalone
@@ -15,8 +15,8 @@ JBOSS_MODE=standalone
 JBOSS_CONFIG="{{ wildfly_standalone_config_file }}"
 
 ## Location to keep the console log
-JBOSS_CONSOLE_LOG="/var/log/wildfly/console.log"
+JBOSS_CONSOLE_LOG="{{ wildfly_log_dir }}/{{ wildfly_log_file }}"
 
 # Need to modify the init script to account for JBOSS_OPTS
 # Allows us to pass system properties to WildFly
-JBOSS_OPTS="-P=/etc/wildfly/wildfly.properties"
+JBOSS_OPTS="-P={{ wildfly_conf_dir }}/wildfly.properties"
