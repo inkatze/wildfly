@@ -3,3 +3,7 @@
 
 - name: restart wildfly
   service: name=wildfly state=restarted
+
+- name: change standalone data mode
+  file: path={{ wildfly_dir }}/standalone/data owner=wildfly group=wildfly
+        mode=0750 recurse=yes

@@ -18,6 +18,9 @@ wildfly_log: "{{ wildfly_log_dir }}/{{ wildfly_log_file }}"
 wildfly_version_file: "{{ wildfly_dir }}/version"
 
 wildfly_conf_dir: /etc/wildfly
+wildfly_standalone_config_file: standalone.xml
+wildfly_standalone_config_path: "{{ wildfly_dir }}/standalone/configuration/\
+                                 {{ wildfly_standalone_config_file }}"
 wildfly_init_dir: /etc/init.d
 
 wildfly_bind_address: 0.0.0.0
@@ -25,5 +28,6 @@ wildfly_management_bind_address: 0.0.0.0
 wildfly_manage_port: 9990
 wildfly_http_port: 8080
 
-wildfly_management_user: "admin"
-wildfly_management_password: "admin"
+wildfly_management_user: admin
+wildfly_management_password: admin
+wildfly_management_user_overwrite: yes

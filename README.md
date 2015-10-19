@@ -9,11 +9,13 @@ Role Variables
 It's important to change the bind addresses to localhost or internal network in
 production environments. The management user is also intended for
 non-production environments, so you must change these variables for production
-or undefine them and the user creation task will be skipped.
+or undefine them and the user creation task will be skipped. You can also set
+the variable `wildfly_management_user_overwrite` to `no` to avoid the user
+creation or override and have the correct change status.
 
 Defaults:
 
-    wildfly_version: 9.0.0.Final
+    wildfly_version: 9.0.1.Final
 
     wildfly_base_download_url: http://download.jboss.org/wildfly
     wildfly_name: wildfly-{{ wildfly_version }}
@@ -30,6 +32,9 @@ Defaults:
     wildfly_version_file: "{{ wildfly_dir }}/version"
 
     wildfly_conf_dir: /etc/wildfly
+    wildfly_standalone_config_file: standalone.xml
+    wildfly_standalone_config_path: "{{ wildfly_dir }}/standalone/configuration/\
+                                    {{ wildfly_standalone_config_file }}"
     wildfly_init_dir: /etc/init.d
 
     wildfly_bind_address: 0.0.0.0
@@ -37,8 +42,9 @@ Defaults:
     wildfly_manage_port: 9990
     wildfly_http_port: 8080
 
-    wildfly_management_user: "admin"
-    wildfly_management_password: "admin"
+    wildfly_management_user: admin
+    wildfly_management_password: admin
+    wildfly_management_user_overwrite: yes
 
 Example Playbook
 ----------------

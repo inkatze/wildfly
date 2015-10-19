@@ -1,0 +1,58 @@
+---
+# task file for wildfly
+
+- name: Create wildfly etc directory
+  file: path={{ wildfly_conf_dir }} owner=wildfly group=wildfly mode=750
+        state=directory
+
+- name: Copy wildfly configuration
+  template: src=wildfly.conf.j2 dest={{ wildfly_conf_dir }}/wildfly.conf
+            owner=root group=root mode=0640
+  notify:
+    - restart wildfly
+    - change standalone data mode
+
+- name: Copy wildfly properties file
+  template: src=wildfly.properties.j2 owner=wildfly group=wildfly mode=0640
+            dest={{ wildfly_conf_dir }}/wildfly.properties
+  notify:
+    - restart wildfly
+    - change standalone data mode
+
+- name: Copy wildfly init script
+  template: src=wildfly.j2 dest={{ wildfly_init_dir }}/wildfly owner=root
+            group=root mode=0750
+  notify:
+    - restart wildfly
+    - change standalone data mode
+
+- name: Open wildfly management tcp port
+  firewalld: port={{ wildfly_manage_port }}/tcp permanent=true immediate=true
+             state=enabled
+
+- name: Open wildfly management udp port
+  firewalld: port={{ wildfly_manage_port }}/udp permanent=true immediate=true
+             state=enabled
+
+- name: Open wildfly http tcp port
+  firewalld: port={{ wildfly_http_port }}/tcp permanent=true immediate=true
+             state=enabled
+
+- name: Open wildfly http udp port
+  firewalld: port={{ wildfly_http_port }}/udp permanent=true immediate=true
+             state=enabled
+
+- name: Enable and start the service
+  service: name=wildfly enabled=yes state=started
+
+- name: Change standalone data mode
+  file: path={{ wildfly_dir }}/standalone/data mode=0750 recurse=yes
+        owner=wildfly group=wildfly
+
+- name: Delete wildfly tar file
+  file: path={{ wildfly_download_dir }}/{{ wildfly_download_file }}
+        state=absent
+
+- name: Create a version file
+  template: src=version.j2 dest={{ wildfly_version_file }} owner=wildfly
+            group=wildfly mode=0750

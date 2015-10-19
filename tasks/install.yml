@@ -1,0 +1,35 @@
+---
+# task file for wildfly
+
+- name: Install OpenJDK
+  yum: name=java-1.8.0-openjdk-headless state=present
+
+- name: Check if wildfly version file exists
+  stat: path={{ wildfly_version_file }}
+  register: wildfly_version_file_st
+  changed_when: not wildfly_version_file_st.stat.exists
+
+- name: Check wildfly installation
+  shell: grep -q "{{ wildfly_version }}" {{ wildfly_version_file }} && echo $?
+  register: wildfly_installed
+  when: wildfly_version_file_st.stat.exists and
+        not wildfly_version_file_st.stat.isdir
+  changed_when: wildfly_installed.rc == 1
+
+- name: Download wildfly tar file
+  get_url: dest={{ wildfly_download_dir }} url={{ wildfly_download_url }}
+  when: wildfly_installed.stdout is not defined or not wildfly_installed.stdout
+
+- name: Create wildfly group
+  group: name=wildfly state=present
+  when: wildfly_installed.stdout is not defined or not wildfly_installed.stdout
+
+- name: Create wildfly user
+  user: name=wildfly group=wildfly createhome=no state=present
+  when: wildfly_installed.stdout is not defined or not wildfly_installed.stdout
+
+- name: Unarchive downloaded file
+  unarchive: src={{ wildfly_download_dir }}/{{ wildfly_download_file }}
+             dest={{ wildfly_install_dir }} copy=no
+             owner=wildfly group=wildfly mode=0750
+  when: wildfly_installed.stdout is not defined or not wildfly_installed.stdout
