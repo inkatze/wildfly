@@ -15,7 +15,7 @@ JBOSS_MODE=standalone
 JBOSS_CONFIG="{{ wildfly_standalone_config_file }}"
 
 ## Location to keep the console log
-JBOSS_CONSOLE_LOG="{{ wildfly_log_dir }}/{{ wildfly_log_file }}"
+JBOSS_CONSOLE_LOG="{{ wildfly_console_log }}"
 
 # Need to modify the init script to account for JBOSS_OPTS
 # Allows us to pass system properties to WildFly

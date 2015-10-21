@@ -17,6 +17,9 @@ Defaults:
 
     wildfly_version: 9.0.1.Final
 
+    wildfly_user: wildfly
+    wildfly_group: wildfly
+
     wildfly_base_download_url: http://download.jboss.org/wildfly
     wildfly_name: wildfly-{{ wildfly_version }}
     wildfly_download_file: "{{ wildfly_name }}.tar.gz"
@@ -26,10 +29,12 @@ Defaults:
 
     wildfly_install_dir: /opt
     wildfly_dir: "{{ wildfly_install_dir }}/{{ wildfly_name }}"
-    wildfly_log_dir: "/var/log/wildfly"
-    wildfly_log_file: "console.log"
-    wildfly_log: "{{ wildfly_log_dir }}/{{ wildfly_log_file }}"
     wildfly_version_file: "{{ wildfly_dir }}/version"
+
+    wildfly_console_log_dir: "/var/log/wildfly"
+    wildfly_console_log_file: "console.log"
+    wildfly_console_log: "{{ wildfly_console_log_dir }}/\
+                        {{ wildfly_console_log_file }}"
 
     wildfly_conf_dir: /etc/wildfly
     wildfly_standalone_config_file: standalone.xml

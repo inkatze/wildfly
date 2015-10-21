@@ -15,10 +15,12 @@ wildfly_download_dir: /tmp
 
 wildfly_install_dir: /opt
 wildfly_dir: "{{ wildfly_install_dir }}/{{ wildfly_name }}"
-wildfly_log_dir: "/var/log/wildfly"
-wildfly_log_file: "console.log"
-wildfly_log: "{{ wildfly_log_dir }}/{{ wildfly_log_file }}"
 wildfly_version_file: "{{ wildfly_dir }}/version"
+
+wildfly_console_log_dir: "/var/log/wildfly"
+wildfly_console_log_file: "console.log"
+wildfly_console_log: "{{ wildfly_console_log_dir }}/\
+                      {{ wildfly_console_log_file }}"
 
 wildfly_conf_dir: /etc/wildfly
 wildfly_standalone_config_file: standalone.xml
