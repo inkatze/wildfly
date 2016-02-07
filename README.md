@@ -58,6 +58,12 @@ Example Playbook
       roles:
          - { role: inkatze.wildfly }
 
+Troubleshooting
+---------------
+
+  - If you're getting a `Connection refused` error in your browser check that
+  you have the correct IP address in your `wildfly_bind_address` variable.
+
 License
 -------
 
