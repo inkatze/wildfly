@@ -4,3 +4,6 @@
 - include: install.yml
 - include: configure.yml
 - include: users.yml
+
+- include: ssl.yml
+  when: wildfly_enable_ssl

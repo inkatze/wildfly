@@ -1,6 +1,12 @@
 CHANGELOG
 =========
 
+v3.0.0
+
+  - Feature: SSL support.
+  - Feature: Management and Undertow ports are now configurable.
+  - Removed management user override logic.
+
 v2.1.0
 
   - Updated default version to 10.0.0.Final.

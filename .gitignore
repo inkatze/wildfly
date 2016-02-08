@@ -42,3 +42,8 @@ Thumbs.db
 # Tools and Framework files #
 #############################
 .vagrant
+
+# Specific #
+############
+
+files

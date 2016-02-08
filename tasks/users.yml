@@ -1,13 +1,11 @@
 ---
 # tasks file for wildfly
 
-# This status will always be "changed" unless skipped because it will update
-# if exists even with the same credentials.
+# The user will always be overwritten every time a user and password is given.
 - name: Create management user
   command: >
     {{ wildfly_dir }}/bin/add-user.sh
     {{ wildfly_management_user }} {{ wildfly_management_password }}
   become_user: "{{ wildfly_user }}"
   when: wildfly_management_user is defined and
-        wildfly_management_password is defined and
-        wildfly_management_user_overwrite
+        wildfly_management_password is defined

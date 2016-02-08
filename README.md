@@ -44,12 +44,35 @@ Defaults:
 
     wildfly_bind_address: 0.0.0.0
     wildfly_management_bind_address: 0.0.0.0
-    wildfly_manage_port: 9990
+    wildfly_manage_http_port: 9990
+    wildfly_manage_https_port: 9993
     wildfly_http_port: 8080
+    wildfly_https_port: 8443
 
-    wildfly_management_user: admin
-    wildfly_management_password: admin
-    wildfly_management_user_overwrite: yes
+    wildfly_enable_ssl: no
+    wildfly_keystore_name: my.jks
+    wildfly_keystore_path: "{{ wildfly_dir }}/standalone/configuration/\
+                            {{ wildfly_keystore_name }}"
+    wildfly_keystore_alias: my
+    wildfly_keystore_password: "secret"
+    wildfly_key_password: "secret"
+    wildfly_application_ssl_identity: '
+        <server-identities>
+            <ssl>
+                <keystore path="{{ wildfly_keystore_name }}"
+                relative-to="jboss.server.config.dir"
+                alias="{{ wildfly_keystore_alias }}"
+                keystore-password="{{ wildfly_keystore_password }}"
+                key-password="{{ wildfly_key_password }}"/>
+            </ssl>
+        </server-identities>'
+    wildfly_https_listener: '
+        <https-listener name="https-server" socket-binding="https"
+        security-realm="ManagementRealm"/>'
+
+    # Manually defined variables
+    # wildfly_management_user: admin
+    # wildfly_management_password: admin
 
 Example Playbook
 ----------------
@@ -57,6 +80,28 @@ Example Playbook
     - hosts: servers
       roles:
          - { role: inkatze.wildfly }
+
+Admin User
+----------
+
+It's recommended that you create Wildfly's admin user separately as follows:
+
+    $ ansible-playbook main.yml --extra-vars "wildfly_management_user=admin wildfly_management_password=admin"
+
+SSL Support
+-----------
+
+In order to enable SSL for applications and the management interface you have
+to set the `wildfly_enable_ssl` variable to `yes` and put the keystore file
+into this role files folder.
+
+You can create a self signed keystore file with the following command:
+
+    $ keytool -genkey -alias mycert -keyalg RSA -sigalg MD5withRSA -keystore my.jks -storepass secret  -keypass secret -validity 9999
+
+It's recommended that the first and last name is your hostname. After this file
+is created, you have to set the keystore related variable in order to work
+correctly.
 
 Troubleshooting
 ---------------
