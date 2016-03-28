@@ -1,4 +1,4 @@
-wildfly
+Wildfly
 =======
 
 This role installs Wildfly's application runtime.
@@ -102,6 +102,20 @@ You can create a self signed keystore file with the following command:
 It's recommended that the first and last name is your hostname. After this file
 is created, you have to set the keystore related variable in order to work
 correctly.
+
+To create a keystore with your own certificate you need to run the following commands:
+
+    $ cat /etc/ssl/certs/ca-bundle.crt intermediate.crt > allcacerts.crt
+    $ openssl verify -CAfile allcacerts.crt certificate.crt
+    $ openssl pkcs12 -export -chain -CAfile allcacerts.crt -in certificate.crt -inkey private.key -out my.p12 -name my
+    $ keytool -importkeystore -destkeystore my.jks -srckeystore my.p12 -srcstoretype pkcs12 -alias my
+
+The first command will add your intermediate to the openssl's CAs; the order is
+important and you may need to put the itermediate file before `ca-bundle.crt`.
+The second command is to verify that your certificate is signed by a known CA,
+usually if this step fails, the rest of the process will fail too.
+The third command is to import the all our certificate files in pkcs12 format.
+Finally we use keytool to create the keystore to be used in wildfly.
 
 Troubleshooting
 ---------------
