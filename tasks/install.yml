@@ -16,21 +16,21 @@
         not wildfly_version_file_st.stat.isdir
   changed_when: wildfly_installed.rc == 1
 
-- name: Download wildfly tar file
-  get_url: dest={{ wildfly_download_dir }} url={{ wildfly_download_url }}
-  when: wildfly_installed.stdout is not defined or not wildfly_installed.stdout
+- block:
 
-- name: Create wildfly group
-  group: name={{ wildfly_group }} state=present
-  when: wildfly_installed.stdout is not defined or not wildfly_installed.stdout
+  - name: Download wildfly tar file
+    get_url: dest={{ wildfly_download_dir }} url={{ wildfly_download_url }}
 
-- name: Create wildfly user
-  user: name={{ wildfly_user }} group={{ wildfly_group }} createhome=no
-        state=present
-  when: wildfly_installed.stdout is not defined or not wildfly_installed.stdout
+  - name: Create wildfly group
+    group: name={{ wildfly_group }} state=present
 
-- name: Unarchive downloaded file
-  unarchive: src={{ wildfly_download_dir }}/{{ wildfly_download_file }}
-             dest={{ wildfly_install_dir }} copy=no
-             owner={{ wildfly_user }} group={{ wildfly_group }} mode=0750
+  - name: Create wildfly user
+    user: name={{ wildfly_user }} group={{ wildfly_group }} createhome=no
+          state=present
+
+  - name: Unarchive downloaded file
+    unarchive: src={{ wildfly_download_dir }}/{{ wildfly_download_file }}
+               dest={{ wildfly_install_dir }} copy=no
+               owner={{ wildfly_user }} group={{ wildfly_group }} mode=0750
+
   when: wildfly_installed.stdout is not defined or not wildfly_installed.stdout
