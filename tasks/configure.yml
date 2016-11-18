@@ -31,32 +31,16 @@
   firewalld: port={{ wildfly_manage_http_port }}/tcp permanent=true immediate=true
              state=enabled
 
-- name: Open wildfly management http udp port
-  firewalld: port={{ wildfly_manage_http_port }}/udp permanent=true immediate=true
-             state=enabled
-
 - name: Open wildfly management https tcp port
   firewalld: port={{ wildfly_manage_https_port }}/tcp permanent=true immediate=true
-             state=enabled
-
-- name: Open wildfly management https udp port
-  firewalld: port={{ wildfly_manage_https_port }}/udp permanent=true immediate=true
              state=enabled
 
 - name: Open wildfly http tcp port
   firewalld: port={{ wildfly_http_port }}/tcp permanent=true immediate=true
              state=enabled
 
-- name: Open wildfly http udp port
-  firewalld: port={{ wildfly_http_port }}/udp permanent=true immediate=true
-             state=enabled
-
 - name: Open wildfly https tcp port
   firewalld: port={{ wildfly_https_port }}/tcp permanent=true immediate=true
-             state=enabled
-
-- name: Open wildfly https udp port
-  firewalld: port={{ wildfly_https_port }}/udp permanent=true immediate=true
              state=enabled
 
 - name: Enable and start the service
