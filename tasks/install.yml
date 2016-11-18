@@ -7,14 +7,13 @@
 - name: Check if wildfly version file exists
   stat: path={{ wildfly_version_file }}
   register: wildfly_version_file_st
-  changed_when: not wildfly_version_file_st.stat.exists
 
 - name: Check wildfly installation
-  shell: grep -q "{{ wildfly_version }}" {{ wildfly_version_file }} && echo $?
+  command: grep -q "{{ wildfly_version }}" {{ wildfly_version_file }}
   register: wildfly_installed
   when: wildfly_version_file_st.stat.exists and
         not wildfly_version_file_st.stat.isdir
-  changed_when: wildfly_installed.rc == 1
+  changed_when: no
 
 - name: Download wildfly tar file
   get_url: dest={{ wildfly_download_dir }} url={{ wildfly_download_url }}
