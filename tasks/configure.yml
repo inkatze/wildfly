@@ -21,8 +21,17 @@
     - change standalone data mode
 
 - name: Copy wildfly init script
-  template: src=wildfly.j2 dest={{ wildfly_init_dir }}/wildfly owner=root
+  template: src=wildfly.init.j2 dest={{ wildfly_init_dir }}/wildfly owner=root
             group=root mode=0750
+  when: ansible_service_mgr == 'init'
+  notify:
+    - restart wildfly
+    - change standalone data mode
+
+- name: Copy wildfly systemd unit file
+  template: src=wildfly.service.j2 dest={{ wildfly_systemd_dir }}/wildfly owner=root
+            group=root mode=0640
+  when: ansible_service_mgr == 'systemd'
   notify:
     - restart wildfly
     - change standalone data mode

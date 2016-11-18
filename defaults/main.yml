@@ -27,6 +27,7 @@ wildfly_standalone_config_file: standalone.xml
 wildfly_standalone_config_path: "{{ wildfly_dir }}/standalone/configuration/\
                                  {{ wildfly_standalone_config_file }}"
 wildfly_init_dir: /etc/init.d
+wildfly_systemd_dir: /usr/lib/systemd/system
 
 wildfly_bind_address: 0.0.0.0
 wildfly_management_bind_address: 0.0.0.0
