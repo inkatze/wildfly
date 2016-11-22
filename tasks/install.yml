@@ -2,14 +2,17 @@
 # task file for wildfly
 
 - name: Install OpenJDK
-  yum: name=java-1.8.0-openjdk-headless state=present
+  yum:
+    name: java-1.8.0-openjdk-headless
+    state: present
 
 - name: Check if wildfly version file exists
-  stat: path={{ wildfly_version_file }}
+  stat:
+    path: '{{ wildfly_version_file }}'
   register: wildfly_version_file_st
 
 - name: Check wildfly installation
-  command: grep -q "{{ wildfly_version }}" {{ wildfly_version_file }}
+  command: grep -q '{{ wildfly_version }}' '{{ wildfly_version_file }}'
   register: wildfly_installed
   when: wildfly_version_file_st.stat.exists and
         not wildfly_version_file_st.stat.isdir
@@ -18,18 +21,29 @@
 - block:
 
   - name: Download wildfly tar file
-    get_url: dest={{ wildfly_download_dir }} url={{ wildfly_download_url }}
+    get_url:
+      url: '{{ wildfly_download_url }}'
+      dest: '{{ wildfly_download_dir }}'
 
   - name: Create wildfly group
-    group: name={{ wildfly_group }} state=present
+    group:
+      name: '{{ wildfly_group }}'
+      state: present
 
   - name: Create wildfly user
-    user: name={{ wildfly_user }} group={{ wildfly_group }} createhome=no
-          state=present
+    user:
+      name: '{{ wildfly_user }}'
+      group: '{{ wildfly_group }}'
+      createhome: no
+      state: present
 
   - name: Unarchive downloaded file
-    unarchive: src={{ wildfly_download_dir }}/{{ wildfly_download_file }}
-               dest={{ wildfly_install_dir }} copy=no
-               owner={{ wildfly_user }} group={{ wildfly_group }} mode=0750
+    unarchive:
+      src: '{{ wildfly_download_dir }}/{{ wildfly_download_file }}'
+      dest: '{{ wildfly_install_dir }}'
+      owner: '{{ wildfly_user }}'
+      group: '{{ wildfly_group }}'
+      mode: '0750'
+      copy: no
 
   when: wildfly_installed.stdout is not defined or not wildfly_installed.stdout

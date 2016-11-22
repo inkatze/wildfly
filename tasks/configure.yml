@@ -2,20 +2,31 @@
 # task file for wildfly
 
 - name: Create wildfly etc directory
-  file: path={{ wildfly_conf_dir }} owner={{ wildfly_user }}
-        group={{ wildfly_group }} mode=750 state=directory
+  file:
+    path: '{{ wildfly_conf_dir }}'
+    state: directory
+    owner: '{{ wildfly_user }}'
+    group: '{{ wildfly_group }}'
+    mode: '0750'
 
 - name: Copy wildfly configuration
-  template: src=wildfly.conf.j2 dest={{ wildfly_conf_dir }}/wildfly.conf
-            owner=root group=root mode=0640
+  template:
+    src: wildfly.conf.j2
+    dest: '{{ wildfly_conf_dir }}/wildfly.conf'
+    owner: root
+    group: root
+    mode: '0640'
   notify:
     - restart wildfly
     - change standalone data mode
 
 - name: Copy wildfly properties file
-  template: src=wildfly.properties.j2 owner={{ wildfly_user }}
-            group={{ wildfly_group }} mode=0640
-            dest={{ wildfly_conf_dir }}/wildfly.properties
+  template:
+    src: wildfly.properties.j2
+    dest: '{{ wildfly_conf_dir }}/wildfly.properties'
+    owner: '{{ wildfly_user }}'
+    group: '{{ wildfly_group }}'
+    mode: '0640'
   notify:
     - restart wildfly
     - change standalone data mode
@@ -36,33 +47,56 @@
     - restart wildfly
     - change standalone data mode
 
-- name: Open wildfly management http tcp port
-  firewalld: port={{ wildfly_manage_http_port }}/tcp permanent=true immediate=true
-             state=enabled
+  firewalld:
+    port: '{{ wildfly_manage_http_port }}/tcp'
+    permanent: yes
+    immediate: yes
+    state: enabled
 
 - name: Open wildfly management https tcp port
-  firewalld: port={{ wildfly_manage_https_port }}/tcp permanent=true immediate=true
-             state=enabled
+  firewalld:
+    port: '{{ wildfly_manage_https_port }}/tcp'
+    permanent: yes
+    immediate: yes
+    state: enabled
 
 - name: Open wildfly http tcp port
-  firewalld: port={{ wildfly_http_port }}/tcp permanent=true immediate=true
-             state=enabled
+  firewalld:
+    port: '{{ wildfly_http_port }}/tcp'
+    permanent: yes
+    immediate: yes
+    state: enabled
 
 - name: Open wildfly https tcp port
-  firewalld: port={{ wildfly_https_port }}/tcp permanent=true immediate=true
-             state=enabled
+  firewalld:
+    port: '{{ wildfly_https_port }}/tcp'
+    permanent: yes
+    immediate: yes
+    state: enabled
 
 - name: Enable and start the service
-  service: name=wildfly enabled=yes state=started
+  service:
+    name: wildfly
+    state: started
+    enabled: yes
 
 - name: Change standalone data mode
-  file: path={{ wildfly_dir }}/standalone/data mode=0750 recurse=yes
-        owner={{ wildfly_user }} group={{ wildfly_group }}
+  file:
+    path: '{{ wildfly_dir }}/standalone/data'
+    owner: '{{ wildfly_user }}'
+    group: '{{ wildfly_group }}'
+    mode: '0750'
+    recurse: yes
 
 - name: Delete wildfly tar file
-  file: path={{ wildfly_download_dir }}/{{ wildfly_download_file }}
-        state=absent
+  file:
+    path: '{{ wildfly_download_dir }}/{{ wildfly_download_file }}'
+    state: absent
 
 - name: Create a version file
-  template: src=version.j2 dest={{ wildfly_version_file }} mode=0750
-            owner={{ wildfly_user }} group={{ wildfly_group }}
+  template:
+    src: version.j2
+    dest: '{{ wildfly_version_file }}'
+    owner: '{{ wildfly_user }}'
+    group: '{{ wildfly_group }}'
+    mode: '0750'
