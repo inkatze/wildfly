@@ -22,6 +22,7 @@
     name: '{{ wildfly_user }}'
     group: '{{ wildfly_group }}'
     createhome: no
+    shell: "{{ wildfly_user_shell |default(omit) }}"
     state: present
 
 - name: Unarchive downloaded file
