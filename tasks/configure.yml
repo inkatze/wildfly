@@ -47,6 +47,7 @@
     - restart wildfly
     - change standalone data mode
 
+- name: Open wildfly management http tcp port
   firewalld:
     port: '{{ wildfly_manage_http_port }}/tcp'
     permanent: yes
