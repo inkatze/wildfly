@@ -28,6 +28,9 @@ wildfly_conf_dir: /etc/wildfly
 wildfly_standalone_config_file: standalone.xml
 wildfly_standalone_config_path: "{{ wildfly_dir }}/standalone/configuration/\
                                  {{ wildfly_standalone_config_file }}"
+wildfly_startup_wait: ''
+wildfly_shutdown_wait: ''
+
 wildfly_init_dir: /etc/init.d
 wildfly_systemd_dir: /usr/lib/systemd/system
 

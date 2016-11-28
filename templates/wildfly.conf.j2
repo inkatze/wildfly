@@ -14,6 +14,16 @@ JBOSS_MODE=standalone
 ## Configuration for standalone mode
 JBOSS_CONFIG="{{ wildfly_standalone_config_file }}"
 
+{% if wildfly_startup_wait %}
+## The amount of time to wait for startup
+STARTUP_WAIT={{ wildfly_startup_wait }}
+{% endif %}
+
+{% if wildfly_shutdown_wait  %}
+## The amount of time to wait for shutdown
+SHUTDOWN_WAIT={{ wildfly_shutdown_wait }}
+{% endif %}
+
 ## Location to keep the console log
 JBOSS_CONSOLE_LOG="{{ wildfly_console_log }}"
 
