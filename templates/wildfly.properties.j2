@@ -6,3 +6,6 @@ jboss.http.port={{ wildfly_http_port }}
 jboss.https.port={{ wildfly_https_port }}
 jboss.bind.address.management={{ wildfly_management_bind_address }}
 jboss.server.temp.dir=/tmp/wildfly
+{% if wildfly_node_name %}
+jboss.node.name={{ wildfly_node_name }}
+{% endif %}
