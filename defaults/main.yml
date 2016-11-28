@@ -17,6 +17,7 @@ wildfly_download_dir: /tmp
 
 wildfly_install_dir: /opt
 wildfly_dir: "{{ wildfly_install_dir }}/{{ wildfly_name }}"
+wildfly_create_symlink: false
 
 wildfly_console_log_dir: "/var/log/wildfly"
 wildfly_console_log_file: "console.log"
