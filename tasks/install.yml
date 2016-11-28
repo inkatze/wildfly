@@ -34,3 +34,9 @@
     copy: no
     creates: "{{ wildfly_dir }}/bin/standalone.sh"
 
+- name: Create symlink to installed version
+  file:
+    state: link
+    src: "{{ wildfly_dir }}"
+    dest: "{{ wildfly_install_dir }}/wildfly"
+  when: wildfly_create_symlink
