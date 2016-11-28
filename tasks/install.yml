@@ -24,7 +24,7 @@
   - name: Download wildfly tar file
     get_url:
       url: '{{ wildfly_download_url }}'
-      dest: '{{ wildfly_download_dir }}'
+      dest: '{{ wildfly_download_dir }}/{{ wildfly_download_file }}'
 
   - name: Create wildfly group
     group:
