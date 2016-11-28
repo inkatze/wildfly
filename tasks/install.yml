@@ -5,6 +5,7 @@
   yum:
     name: java-1.8.0-openjdk-headless
     state: present
+  when: wildfly_manage_java_pkg
 
 - name: Check if wildfly version file exists
   stat:
