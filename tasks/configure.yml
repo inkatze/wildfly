@@ -93,11 +93,3 @@
   file:
     path: '{{ wildfly_download_dir }}/{{ wildfly_download_file }}'
     state: absent
-
-- name: Create a version file
-  template:
-    src: version.j2
-    dest: '{{ wildfly_version_file }}'
-    owner: '{{ wildfly_user }}'
-    group: '{{ wildfly_group }}'
-    mode: '0750'
