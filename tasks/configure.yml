@@ -40,7 +40,7 @@
     - change standalone data mode
 
 - name: Copy wildfly systemd unit file
-  template: src=wildfly.service.j2 dest={{ wildfly_systemd_dir }}/wildfly owner=root
+  template: src=wildfly.service.j2 dest={{ wildfly_systemd_dir }}/wildfly.service owner=root
             group=root mode=0640
   when: ansible_service_mgr == 'systemd'
   notify:
