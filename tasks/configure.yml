@@ -47,33 +47,35 @@
     - restart wildfly
     - change standalone data mode
 
-- name: Open wildfly management http tcp port
-  firewalld:
-    port: '{{ wildfly_manage_http_port }}/tcp'
-    permanent: yes
-    immediate: yes
-    state: enabled
+- block:
+  - name: Open wildfly management http tcp port
+    firewalld:
+      port: '{{ wildfly_manage_http_port }}/tcp'
+      permanent: yes
+      immediate: yes
+      state: enabled
 
-- name: Open wildfly management https tcp port
-  firewalld:
-    port: '{{ wildfly_manage_https_port }}/tcp'
-    permanent: yes
-    immediate: yes
-    state: enabled
+  - name: Open wildfly management https tcp port
+    firewalld:
+      port: '{{ wildfly_manage_https_port }}/tcp'
+      permanent: yes
+      immediate: yes
+      state: enabled
 
-- name: Open wildfly http tcp port
-  firewalld:
-    port: '{{ wildfly_http_port }}/tcp'
-    permanent: yes
-    immediate: yes
-    state: enabled
+  - name: Open wildfly http tcp port
+    firewalld:
+      port: '{{ wildfly_http_port }}/tcp'
+      permanent: yes
+      immediate: yes
+      state: enabled
 
-- name: Open wildfly https tcp port
-  firewalld:
-    port: '{{ wildfly_https_port }}/tcp'
-    permanent: yes
-    immediate: yes
-    state: enabled
+  - name: Open wildfly https tcp port
+    firewalld:
+      port: '{{ wildfly_https_port }}/tcp'
+      permanent: yes
+      immediate: yes
+      state: enabled
+  when: wildfly_manage_firewall
 
 - name: Enable and start the service
   service:

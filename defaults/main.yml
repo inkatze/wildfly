@@ -2,6 +2,7 @@
 # defaults file for wildfly
 
 wildfly_manage_java_pkg: true
+wildfly_manage_firewall: true
 
 wildfly_version: 10.0.0.Final
 
