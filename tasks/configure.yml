@@ -83,14 +83,6 @@
     state: started
     enabled: yes
 
-- name: Change standalone data mode
-  file:
-    path: '{{ wildfly_dir }}/standalone/data'
-    owner: '{{ wildfly_user }}'
-    group: '{{ wildfly_group }}'
-    mode: '0750'
-    recurse: yes
-
 - name: Delete wildfly tar file
   file:
     path: '{{ wildfly_download_dir }}/{{ wildfly_download_file }}'
