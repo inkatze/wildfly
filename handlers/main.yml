@@ -13,3 +13,4 @@
     group: '{{ wildfly_group }}'
     mode: '0750'
     recurse: yes
+  when: wildfly_manage_standalone_data
