@@ -34,7 +34,7 @@
 - name: Copy wildfly init script
   template: src=wildfly.init.j2 dest={{ wildfly_init_dir }}/wildfly owner=root
             group=root mode=0750
-  when: ansible_service_mgr == 'init'
+  when: ansible_service_mgr in ['init', 'upstart']
   notify:
     - restart wildfly
     - change standalone data mode
