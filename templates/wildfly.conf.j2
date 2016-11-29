@@ -3,7 +3,7 @@
 # default location: /etc/default/wildfly
 
 ## Location of WildFly
-JBOSS_HOME="{{ wildfly_dir }}"
+JBOSS_HOME="{{ wildfly_install_dir + '/wildfly' if wildfly_create_symlink else wildfly_dir }}"
 
 ## The username who should own the process.
 JBOSS_USER="{{ wildfly_user }}"
