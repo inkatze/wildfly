@@ -45,6 +45,9 @@ wildfly_manage_https_port: 9993
 wildfly_http_port: 8080
 wildfly_https_port: 8443
 
+wildfly_management_users: []
+wildfly_app_users: []
+
 wildfly_enable_ssl: no
 wildfly_keystore_name: my.jks
 wildfly_keystore_path: "{{ wildfly_dir }}/standalone/configuration/\
