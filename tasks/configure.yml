@@ -82,6 +82,7 @@
     name: wildfly
     state: started
     enabled: yes
+  when: wildfly_manage_service
 
 - name: Delete wildfly tar file
   file:
