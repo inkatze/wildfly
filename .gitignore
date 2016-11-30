@@ -42,6 +42,8 @@ Thumbs.db
 # Tools and Framework files #
 #############################
 .vagrant
+.molecule
+*.retry
 
 # Specific #
 ############
