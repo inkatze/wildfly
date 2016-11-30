@@ -1,6 +1,8 @@
 Wildfly
 =======
 
+[![Build Status](https://travis-ci.org/kostyrevaa/wildfly.svg?branch=master)](https://travis-ci.org/kostyrevaa/wildfly)
+
 This role installs Wildfly's application runtime.
 
 Role Variables
