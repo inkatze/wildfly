@@ -44,6 +44,8 @@ wildfly_manage_http_port: 9990
 wildfly_manage_https_port: 9993
 wildfly_http_port: 8080
 wildfly_https_port: 8443
+wildfly_bind_address_unsecure: ''
+wildfly_messaging_group_address: ''
 
 wildfly_management_users: []
 wildfly_app_users: []
