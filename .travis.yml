@@ -13,7 +13,7 @@ before_install:
 install:
 - pip install ansible==2.2.0.0
 - pip install docker-py
-- pip install molecule
+- pip install molecule==1.13.0
 
 script:
 - cd ../ && mv wildfly inkatze.wildfly && cd inkatze.wildfly
