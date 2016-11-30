@@ -10,6 +10,7 @@
   args:
     creates: "{{ wildfly_dir }}/.mgmt-users.{{ item.name }}.provisioned"
   when: wildfly_management_users | length > 0
+  no_log: True
 
 - name: Create application users
   shell: >
@@ -20,3 +21,4 @@
   args:
     creates: "{{ wildfly_dir }}/.app-users.{{ item.name }}.provisioned"
   when: wildfly_app_users | length > 0
+  no_log: True
