@@ -1,0 +1,11 @@
+---
+- hosts: all
+  vars:
+    wildfly_remove_download_file: false
+  pre_tasks:
+    - name: install initscripts
+      package:
+        name: initscripts
+        state: present
+  roles:
+    - role: inkatze.wildfly

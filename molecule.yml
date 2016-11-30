@@ -1,0 +1,21 @@
+---
+molecule:
+  test:
+    sequence:
+      - destroy
+      - syntax
+      - create
+      - converge
+      - idempotence
+
+driver:
+  name: docker
+docker:
+  containers:
+    - name: wildfly-centos6
+      image: centos
+      image_version: 6
+
+    # - name: wildfly-centos7
+    #   image: centos
+    #   image_version: 7
