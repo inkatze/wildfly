@@ -14,7 +14,7 @@ docker:
   containers:
     - name: wildfly-centos6
       image: centos
-      image_version: 6
+      image_version: 6.8
 
     # - name: wildfly-centos7
     #   image: centos
