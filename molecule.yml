@@ -16,6 +16,7 @@ docker:
       image: centos
       image_version: 6.8
 
-    # - name: wildfly-centos7
-    #   image: centos
-    #   image_version: 7
+    - name: wildfly-centos7
+      image: milcom/centos7-systemd
+      image_version: latest
+      privileged: True
