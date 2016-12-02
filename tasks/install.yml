@@ -7,44 +7,37 @@
     state: present
   when: wildfly_manage_java_pkg
 
-- name: Check if wildfly version file exists
-  stat:
-    path: '{{ wildfly_version_file }}'
-  register: wildfly_version_file_st
+- name: Download wildfly tar file
+  get_url:
+    url: '{{ wildfly_download_url }}'
+    dest: '{{ wildfly_download_dir }}/{{ wildfly_download_file }}'
 
-- name: Check wildfly installation
-  command: grep -q '{{ wildfly_version }}' '{{ wildfly_version_file }}'
-  register: wildfly_installed
-  when: wildfly_version_file_st.stat.exists and
-        not wildfly_version_file_st.stat.isdir
-  changed_when: no
+- name: Create wildfly group
+  group:
+    name: '{{ wildfly_group }}'
+    state: present
 
-- block:
+- name: Create wildfly user
+  user:
+    name: '{{ wildfly_user }}'
+    group: '{{ wildfly_group }}'
+    createhome: no
+    shell: "{{ wildfly_user_shell |default(omit) }}"
+    state: present
 
-  - name: Download wildfly tar file
-    get_url:
-      url: '{{ wildfly_download_url }}'
-      dest: '{{ wildfly_download_dir }}/{{ wildfly_download_file }}'
+- name: Unarchive downloaded file
+  unarchive:
+    src: '{{ wildfly_download_dir }}/{{ wildfly_download_file }}'
+    dest: '{{ wildfly_install_dir }}'
+    owner: '{{ wildfly_user }}'
+    group: '{{ wildfly_group }}'
+    mode: '0750'
+    copy: no
+    creates: "{{ wildfly_dir }}/bin/standalone.sh"
 
-  - name: Create wildfly group
-    group:
-      name: '{{ wildfly_group }}'
-      state: present
-
-  - name: Create wildfly user
-    user:
-      name: '{{ wildfly_user }}'
-      group: '{{ wildfly_group }}'
-      createhome: no
-      state: present
-
-  - name: Unarchive downloaded file
-    unarchive:
-      src: '{{ wildfly_download_dir }}/{{ wildfly_download_file }}'
-      dest: '{{ wildfly_install_dir }}'
-      owner: '{{ wildfly_user }}'
-      group: '{{ wildfly_group }}'
-      mode: '0750'
-      copy: no
-
-  when: wildfly_installed.stdout is not defined or not wildfly_installed.stdout
+- name: Create symlink to installed version
+  file:
+    state: link
+    src: "{{ wildfly_dir }}"
+    dest: "{{ wildfly_install_dir }}/wildfly"
+  when: wildfly_create_symlink

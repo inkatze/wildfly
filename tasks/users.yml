@@ -1,11 +1,24 @@
 ---
 # tasks file for wildfly
 
-# The user will always be overwritten every time a user and password is given.
-- name: Create management user
-  command: >
-    {{ wildfly_dir }}/bin/add-user.sh
-    {{ wildfly_management_user }} {{ wildfly_management_password }}
+- name: Create management users
+  shell: >
+    {{ wildfly_dir }}/bin/add-user.sh -s
+    {{ item.name }} {{ item.password }} && touch {{ wildfly_dir }}/.mgmt-users.{{ item.name }}.provisioned
+  with_items: "{{ wildfly_management_users }}"
   become_user: '{{ wildfly_user }}'
-  when: wildfly_management_user is defined and
-        wildfly_management_password is defined
+  args:
+    creates: "{{ wildfly_dir }}/.mgmt-users.{{ item.name }}.provisioned"
+  when: wildfly_management_users | length > 0
+  no_log: True
+
+- name: Create application users
+  shell: >
+    {{ wildfly_dir }}/bin/add-user.sh -s -a
+    {{ item.name }} {{ item.password }} && touch {{ wildfly_dir }}/.app-users.{{ item.name }}.provisioned
+  with_items: "{{ wildfly_app_users }}"
+  become_user: '{{ wildfly_user }}'
+  args:
+    creates: "{{ wildfly_dir }}/.app-users.{{ item.name }}.provisioned"
+  when: wildfly_app_users | length > 0
+  no_log: True

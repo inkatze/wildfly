@@ -34,7 +34,7 @@
 - name: Copy wildfly init script
   template: src=wildfly.init.j2 dest={{ wildfly_init_dir }}/wildfly owner=root
             group=root mode=0750
-  when: ansible_service_mgr == 'init'
+  when: ansible_service_mgr in ['init', 'upstart']
   notify:
     - restart wildfly
     - change standalone data mode
@@ -47,57 +47,45 @@
     - restart wildfly
     - change standalone data mode
 
-- name: Open wildfly management http tcp port
-  firewalld:
-    port: '{{ wildfly_manage_http_port }}/tcp'
-    permanent: yes
-    immediate: yes
-    state: enabled
+- block:
+  - name: Open wildfly management http tcp port
+    firewalld:
+      port: '{{ wildfly_manage_http_port }}/tcp'
+      permanent: yes
+      immediate: yes
+      state: enabled
 
-- name: Open wildfly management https tcp port
-  firewalld:
-    port: '{{ wildfly_manage_https_port }}/tcp'
-    permanent: yes
-    immediate: yes
-    state: enabled
+  - name: Open wildfly management https tcp port
+    firewalld:
+      port: '{{ wildfly_manage_https_port }}/tcp'
+      permanent: yes
+      immediate: yes
+      state: enabled
 
-- name: Open wildfly http tcp port
-  firewalld:
-    port: '{{ wildfly_http_port }}/tcp'
-    permanent: yes
-    immediate: yes
-    state: enabled
+  - name: Open wildfly http tcp port
+    firewalld:
+      port: '{{ wildfly_http_port }}/tcp'
+      permanent: yes
+      immediate: yes
+      state: enabled
 
-- name: Open wildfly https tcp port
-  firewalld:
-    port: '{{ wildfly_https_port }}/tcp'
-    permanent: yes
-    immediate: yes
-    state: enabled
+  - name: Open wildfly https tcp port
+    firewalld:
+      port: '{{ wildfly_https_port }}/tcp'
+      permanent: yes
+      immediate: yes
+      state: enabled
+  when: ansible_distribution_version|version_compare(7, '=') and wildfly_manage_firewall
 
 - name: Enable and start the service
   service:
     name: wildfly
     state: started
     enabled: yes
-
-- name: Change standalone data mode
-  file:
-    path: '{{ wildfly_dir }}/standalone/data'
-    owner: '{{ wildfly_user }}'
-    group: '{{ wildfly_group }}'
-    mode: '0750'
-    recurse: yes
+  when: wildfly_manage_service
 
 - name: Delete wildfly tar file
   file:
     path: '{{ wildfly_download_dir }}/{{ wildfly_download_file }}'
     state: absent
-
-- name: Create a version file
-  template:
-    src: version.j2
-    dest: '{{ wildfly_version_file }}'
-    owner: '{{ wildfly_user }}'
-    group: '{{ wildfly_group }}'
-    mode: '0750'
+  when: wildfly_remove_download_file

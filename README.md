@@ -1,6 +1,8 @@
 Wildfly
 =======
 
+[![Build Status](https://travis-ci.org/kostyrevaa/wildfly.svg?branch=master)](https://travis-ci.org/kostyrevaa/wildfly)
+
 This role installs Wildfly's application runtime.
 
 Role Variables
@@ -29,7 +31,6 @@ Defaults:
 
     wildfly_install_dir: /opt
     wildfly_dir: "{{ wildfly_install_dir }}/{{ wildfly_name }}"
-    wildfly_version_file: "{{ wildfly_dir }}/version"
 
     wildfly_console_log_dir: "/var/log/wildfly"
     wildfly_console_log_file: "console.log"
