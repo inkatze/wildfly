@@ -8,6 +8,7 @@ wildfly_manage_service: true
 wildfly_remove_download_file: true
 
 wildfly_version: 10.0.0.Final
+wildfly_major_v: "{{ wildfly_version.partition('.')[0] }}"
 
 wildfly_user: wildfly
 wildfly_group: wildfly
@@ -21,7 +22,9 @@ wildfly_download_dir: /tmp
 
 wildfly_install_dir: /opt
 wildfly_dir: "{{ wildfly_install_dir }}/{{ wildfly_name }}"
-wildfly_create_symlink: false
+wildfly_create_symlink: true
+
+wildfly_init_src_path: "{{ 'docs/contrib/scripts' if wildfly_major_v | version_compare('10', '>=') else 'bin' }}"
 
 wildfly_console_log_dir: "/var/log/wildfly"
 wildfly_console_log_file: "console.log"
