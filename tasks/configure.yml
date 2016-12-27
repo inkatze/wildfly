@@ -20,6 +20,12 @@
     - restart wildfly
     - change standalone data mode
 
+- name: Create symlink to /etc/default/wildfly.conf
+  file:
+    state: link
+    src: '{{ wildfly_conf_dir }}/wildfly.conf'
+    dest: /etc/default/wildfly.conf
+
 - name: Copy wildfly properties file
   template:
     src: wildfly.properties.j2
@@ -31,9 +37,11 @@
     - restart wildfly
     - change standalone data mode
 
-- name: Copy wildfly init script
-  template: src=wildfly.init.j2 dest={{ wildfly_init_dir }}/wildfly owner=root
-            group=root mode=0750
+- name: Create symlink to upstream init script
+  file:
+    state: link
+    src: '{{ wildfly_install_dir }}/wildfly/bin/init.d/wildfly-init-{{ ansible_os_family | lower }}.sh'
+    dest: '{{ wildfly_init_dir }}/wildfly'
   when: ansible_service_mgr in ['init', 'upstart']
   notify:
     - restart wildfly
