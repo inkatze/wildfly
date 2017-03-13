@@ -25,6 +25,7 @@ Defaults:
     wildfly_base_download_url: http://download.jboss.org/wildfly
     wildfly_name: wildfly-{{ wildfly_version }}
     wildfly_download_file: "{{ wildfly_name }}.tar.gz"
+    wildfly_download_validate_certs: "yes"
     wildfly_download_url: "{{ wildfly_base_download_url }}/{{ wildfly_version }}/\
                         {{ wildfly_download_file }}"
     wildfly_download_dir: /tmp

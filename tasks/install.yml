@@ -11,6 +11,7 @@
   get_url:
     url: '{{ wildfly_download_url }}'
     dest: '{{ wildfly_download_dir }}/{{ wildfly_download_file }}'
+    validate_certs: '{{wildfly_download_validate_certs}}'
 
 - name: Create wildfly group
   group:
