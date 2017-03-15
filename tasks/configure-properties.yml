@@ -1,0 +1,10 @@
+- name: Copy wildfly properties file
+  template:
+    src: wildfly.properties.j2
+    dest: '{{ wildfly_conf_dir }}/wildfly.properties'
+    owner: '{{ wildfly_user }}'
+    group: '{{ wildfly_group }}'
+    mode: '0640'
+  notify:
+    - restart wildfly
+    - change standalone data mode
