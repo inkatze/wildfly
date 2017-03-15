@@ -85,6 +85,8 @@
       state: enabled
   when: ansible_distribution_version|version_compare(7, '=') and wildfly_manage_firewall
 
+- meta: flush_handlers
+
 - name: Enable and start the service
   service:
     name: wildfly
