@@ -6,7 +6,8 @@ After=network.target
 Type=simple
 User=wildfly
 Group=wildfly
-ExecStart=/opt/wildfly-{{ wildfly_version }}/bin/standalone.sh
+EnvironmentFile=/etc/default/wildfly.conf
+ExecStart=/opt/wildfly-{{ wildfly_version }}/bin/standalone.sh $JBOSS_OPTS
 
 [Install]
 WantedBy=multi-user.target
