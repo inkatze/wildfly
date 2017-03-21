@@ -26,16 +26,7 @@
     src: '{{ wildfly_conf_dir }}/wildfly.conf'
     dest: /etc/default/wildfly.conf
 
-- name: Copy wildfly properties file
-  template:
-    src: wildfly.properties.j2
-    dest: '{{ wildfly_conf_dir }}/wildfly.properties'
-    owner: '{{ wildfly_user }}'
-    group: '{{ wildfly_group }}'
-    mode: '0640'
-  notify:
-    - restart wildfly
-    - change standalone data mode
+- include: configure-properties.yml
 
 - name: Create symlink to upstream init script
   file:
@@ -84,6 +75,8 @@
       immediate: yes
       state: enabled
   when: ansible_distribution_version|version_compare(7, '=') and wildfly_manage_firewall
+
+- meta: flush_handlers
 
 - name: Enable and start the service
   service:
