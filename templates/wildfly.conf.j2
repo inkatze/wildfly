@@ -12,7 +12,7 @@ JBOSS_USER="{{ wildfly_user }}"
 JBOSS_MODE=standalone
 
 ## Configuration for standalone mode
-JBOSS_CONFIG="{{ wildfly_standalone_config_file }}"
+JBOSS_CONFIG={{ wildfly_standalone_config_file }}
 
 {% if wildfly_startup_wait %}
 ## The amount of time to wait for startup
