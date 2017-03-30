@@ -7,7 +7,7 @@ Type=simple
 User=wildfly
 Group=wildfly
 EnvironmentFile=/etc/default/wildfly.conf
-ExecStart=/opt/wildfly-{{ wildfly_version }}/bin/standalone.sh $JBOSS_OPTS
+ExecStart={{ wildfly_dir }}/bin/standalone.sh $JBOSS_OPTS
 
 [Install]
 WantedBy=multi-user.target
