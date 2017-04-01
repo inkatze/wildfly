@@ -78,11 +78,16 @@
 
 - meta: flush_handlers
 
-- name: Enable and start the service
-  service:
-    name: wildfly
-    state: started
-    enabled: yes
+- block:
+    - name: Enable and start the service
+      service:
+        name: wildfly
+        state: started
+        enabled: yes
+    - name: Wait for wildfly to start
+      wait_for:
+        path: "{{ wildfly_dir }}/standalone/log/server.log"
+        search_regex: 'started in'
   when: wildfly_manage_service
 
 - name: Delete wildfly tar file
