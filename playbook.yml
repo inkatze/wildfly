@@ -1,13 +1,20 @@
 ---
 
-- hosts: wildfly-centos6
+- hosts: all
+  tasks:
+    - name: create a group of all hosts by operating system
+      group_by:
+        key: "{{ ansible_distribution}}-{{ ansible_distribution_major_version }}"
+
+
+- hosts: CentOS-6
   tasks:
     - name: install initscripts
       package:
         name: initscripts
         state: present
 
-- hosts: wildfly-centos7
+- hosts: CentOS-7
   tasks:
     - name: remove requiretty from /etc/sudoers
       lineinfile:
@@ -16,13 +23,6 @@
         state: absent
 
 - hosts: all
-  vars:
-    wildfly_remove_download_file: false
-    wildfly_management_users:
-      - { name: 'david', password: 'ruomlig' }
-      - { name: 'roger', password: 'sretaw' }
-    wildfly_app_users:
-      - { name: 'rich', password: 'thgirw' }
-      - { name: 'nick', password: 'nosam' }
+  any_errors_fatal: true
   roles:
     - role: inkatze.wildfly
