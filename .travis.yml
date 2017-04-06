@@ -12,6 +12,7 @@ before_install:
 
 install:
 - pip install ansible==2.2.0.0
+- pip install ansible-lint
 - pip install docker
 - pip install molecule==1.23.0
 

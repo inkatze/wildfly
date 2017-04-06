@@ -6,6 +6,7 @@
     {{ wildfly_dir }}/bin/add-user.sh -s
     {{ item.name }} {{ item.password }} && touch {{ wildfly_dir }}/.mgmt-users.{{ item.name }}.provisioned
   with_items: "{{ wildfly_management_users }}"
+  become: True
   become_user: '{{ wildfly_user }}'
   args:
     creates: "{{ wildfly_dir }}/.mgmt-users.{{ item.name }}.provisioned"
@@ -17,6 +18,7 @@
     {{ wildfly_dir }}/bin/add-user.sh -s -a
     {{ item.name }} {{ item.password }} && touch {{ wildfly_dir }}/.app-users.{{ item.name }}.provisioned
   with_items: "{{ wildfly_app_users }}"
+  become: True
   become_user: '{{ wildfly_user }}'
   args:
     creates: "{{ wildfly_dir }}/.app-users.{{ item.name }}.provisioned"

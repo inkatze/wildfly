@@ -1,13 +1,4 @@
 ---
-molecule:
-  test:
-    sequence:
-      - destroy
-      - syntax
-      - create
-      - converge
-      - idempotence
-
 driver:
   name: docker
 docker:
