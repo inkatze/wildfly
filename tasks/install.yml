@@ -13,18 +13,20 @@
     dest: '{{ wildfly_download_dir }}/{{ wildfly_download_file }}'
     validate_certs: '{{ wildfly_download_validate_certs }}'
 
-- name: Create wildfly group
-  group:
-    name: '{{ wildfly_group }}'
-    state: present
+- block:
+    - name: Create wildfly group
+      group:
+        name: '{{ wildfly_group }}'
+        state: present
 
-- name: Create wildfly user
-  user:
-    name: '{{ wildfly_user }}'
-    group: '{{ wildfly_group }}'
-    createhome: no
-    shell: "{{ wildfly_user_shell |default(omit) }}"
-    state: present
+    - name: Create wildfly user
+      user:
+        name: '{{ wildfly_user }}'
+        group: '{{ wildfly_group }}'
+        createhome: no
+        shell: "{{ wildfly_user_shell |default(omit) }}"
+        state: present
+  when: wildfly_manage_user
 
 - name: Unarchive downloaded file
   unarchive:
