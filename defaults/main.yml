@@ -24,7 +24,6 @@ wildfly_download_dir: /tmp
 
 wildfly_install_dir: /opt
 wildfly_dir: "{{ wildfly_install_dir }}/{{ wildfly_name }}"
-wildfly_dir_mode: '0750'
 wildfly_create_symlink: true
 
 wildfly_init_src_path: "{{ 'docs/contrib/scripts' if wildfly_major_v | version_compare('10', '>=') else 'bin' }}"
