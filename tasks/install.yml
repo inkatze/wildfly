@@ -34,7 +34,6 @@
     dest: '{{ wildfly_install_dir }}'
     owner: '{{ wildfly_user }}'
     group: '{{ wildfly_group }}'
-    mode: '{{ wildfly_dir_mode }}'
     copy: no
     creates: "{{ wildfly_dir }}/bin/standalone.sh"
 
