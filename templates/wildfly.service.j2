@@ -4,9 +4,9 @@ After=network.target
 
 [Service]
 Type=simple
-User=wildfly
-Group=wildfly
-EnvironmentFile=/etc/default/wildfly.conf
+User={{ wildfly_user }}
+Group={{ wildfly_group }}
+EnvironmentFile={{ wildfly_conf_dir }}/wildfly.conf
 ExecStart={{ wildfly_dir }}/bin/standalone.sh $JBOSS_OPTS
 
 [Install]
