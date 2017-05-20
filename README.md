@@ -1,12 +1,10 @@
-Wildfly
-=======
+# Wildfly
 
 [![Build Status](https://travis-ci.org/inkatze/wildfly.svg?branch=master)](https://travis-ci.org/inkatze/wildfly)
 
 This role installs Wildfly's application runtime.
 
-Role Variables
---------------
+## Role Variables
 
 It's important to change the bind addresses to localhost or internal network in
 production environments. The management user is also intended for
@@ -76,22 +74,19 @@ Defaults:
     # wildfly_management_user: admin
     # wildfly_management_password: admin
 
-Example Playbook
-----------------
+## Example Playbook
 
     - hosts: servers
       roles:
          - { role: inkatze.wildfly }
 
-Admin User
-----------
+## Admin User
 
 It's recommended that you create Wildfly's admin user separately as follows:
 
     $ ansible-playbook main.yml --extra-vars "wildfly_management_user=admin wildfly_management_password=admin"
 
-SSL Support
------------
+## SSL Support
 
 In order to enable SSL for applications and the management interface you have
 to set the `wildfly_enable_ssl` variable to `yes` and put the keystore file
@@ -119,13 +114,11 @@ usually if this step fails, the rest of the process will fail too.
 The third command is to import the all our certificate files in pkcs12 format.
 Finally we use keytool to create the keystore to be used in wildfly.
 
-Troubleshooting
----------------
+## Troubleshooting
 
   - If you're getting a `Connection refused` error in your browser check that
   you have the correct IP address in your `wildfly_bind_address` variable.
 
-License
--------
+## License
 
 BSD
