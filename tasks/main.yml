@@ -2,7 +2,10 @@
 # task file for wildfly
 
 - include: install.yml
+
 - include: configure.yml
+  when: wildfly_manage_configuration
+
 - include: users.yml
 
 - include: ssl.yml

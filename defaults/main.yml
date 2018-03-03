@@ -5,6 +5,7 @@ wildfly_manage_java_pkg: true
 wildfly_manage_firewall: true
 wildfly_manage_standalone_data: true
 wildfly_manage_service: true
+wildfly_manage_configuration: true
 wildfly_remove_download_file: true
 
 wildfly_version: 10.0.0.Final
