@@ -39,8 +39,16 @@ provisioner:
     host_vars:
       wildfly-centos6-8.2.1:
         wildfly_version: 8.2.1.Final
+        wildfly_custom_properties:
+          wildfly_messaging_group_address: 231.7.7.9
+        wildfly_custom_environment:
+          SHUTDOWN_WAIT: 3
       wildfly-centos6-9.0.1:
         wildfly_version: 9.0.1.Final
+        wildfly_custom_properties:
+          jboss.node.name: wildfly
+        wildfly_custom_environment:
+          SHUTDOWN_WAIT: 3
       wildfly-centos6-10.1.0:
         wildfly_version: 10.1.0.Final
       wildfly-centos7-8.2.1:
@@ -49,7 +57,6 @@ provisioner:
         wildfly_version: 9.0.1.Final
       wildfly-centos7-10.1.0:
         wildfly_version: 10.1.0.Final
-
     group_vars:
       all:
         wildfly_remove_download_file: False
@@ -59,6 +66,11 @@ provisioner:
         wildfly_app_users:
           - { name: 'rich', password: 'thgirw' }
           - { name: 'nick', password: 'nosam' }
+        wildfly_custom_properties:
+          jboss.node.name: wildfly-group
+        wildfly_custom_environment:
+          STARTUP_WAIT: 2
+          SHUTDOWN_WAIT: 2
 
   lint:
     name: ansible-lint
