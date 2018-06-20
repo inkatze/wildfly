@@ -8,17 +8,15 @@ services:
 
 before_install:
 - sudo apt-get -qq update
-- sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-engine
+- sudo apt-get install -o Dpkg::Options::="--force-confold" --force-yes -y docker-ce
 
 install:
-- pip install ansible==2.2.0.0
-- pip install ansible-lint
-- pip install docker
-- pip install molecule==1.23.0
+- pip install pipenv
+- pipenv install
 
 script:
 - cd ../ && mv wildfly inkatze.wildfly && cd inkatze.wildfly
-- molecule test
+- pipenv run molecule test
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
