@@ -77,3 +77,6 @@ wildfly_application_ssl_identity: '
 wildfly_https_listener: '
     <https-listener name="https-server" socket-binding="https"
      security-realm="ManagementRealm"/>'
+
+wildfly_custom_properties: {}
+wildfly_custom_environment: {}
