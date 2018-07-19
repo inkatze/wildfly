@@ -33,6 +33,6 @@ JBOSS_OPTS="-P={{ wildfly_conf_dir }}/wildfly.properties"
 
 
 ## Custom variables
-{% for key, value in (wildfly_custom_environment | default({})).iteritems() %}
+{% for key, value in (wildfly_custom_environment | default({})).items() %}
 {{ key }}={{ value }}
 {% endfor %}
