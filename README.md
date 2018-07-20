@@ -73,6 +73,10 @@ Defaults:
     # Manually defined variables
     # wildfly_management_user: admin
     # wildfly_management_password: admin
+    # wildfly_custom_properties:
+    #   custom.property: custom java property, goes into {{ wildfly_conf_dir }}/wildfly.properties
+    # wildfly_custom_environment:
+    #   CUSTOM_ENV_VAR: custom environment variable, goes into {{ wildfly_conf_dir }}/wildfly.conf
 
 ## Example Playbook
 

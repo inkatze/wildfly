@@ -30,3 +30,9 @@ JBOSS_CONSOLE_LOG="{{ wildfly_console_log }}"
 # Need to modify the init script to account for JBOSS_OPTS
 # Allows us to pass system properties to WildFly
 JBOSS_OPTS="-P={{ wildfly_conf_dir }}/wildfly.properties"
+
+
+## Custom variables
+{% for key, value in (wildfly_custom_environment | default({})).items() %}
+{{ key }}={{ value }}
+{% endfor %}

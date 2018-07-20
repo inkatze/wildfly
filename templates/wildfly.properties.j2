@@ -15,3 +15,6 @@ jboss.bind.address.unsecure={{ wildfly_bind_address_unsecure }}
 {% if wildfly_messaging_group_address %}
 jboss.messaging.group.address={{ wildfly_messaging_group_address }}
 {% endif %}
+{% for key, value in (wildfly_custom_properties | default({})).items() %}
+{{ key }}={{ value }}
+{% endfor %}
