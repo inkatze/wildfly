@@ -46,6 +46,13 @@
     - restart wildfly
     - change standalone data mode
 
+- name: Change cli parse parametgers mode
+  template:
+    src: jboss-cli.xml.j2
+    dest: "{{ wildfly_install_dir }}/wildfly/bin/jboss-cli.xml"
+    owner: "{{ wildfly_user }}"
+    group: "{{ wildfly_group }}"
+
 - block:
   - name: Open wildfly management http tcp port
     firewalld:
@@ -80,10 +87,11 @@
 
 - block:
     - name: Enable and start the service
-      service:
+      systemd:
         name: wildfly
         state: started
         enabled: yes
+        daemon_reload: yes
     - name: Wait for wildfly to start
       wait_for:
         path: "{{ wildfly_dir }}/standalone/log/server.log"

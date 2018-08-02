@@ -2,9 +2,10 @@
 # handlers file for wildfly
 
 - name: restart wildfly
-  service:
+  systemd:
     name: wildfly
     state: restarted
+    daemon_reload: yes
 
 - name: change standalone data mode
   file:
