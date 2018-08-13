@@ -43,6 +43,7 @@
             group=root mode=0640
   when: ansible_service_mgr == 'systemd'
   notify:
+    - systemd reload
     - restart wildfly
     - change standalone data mode
 
