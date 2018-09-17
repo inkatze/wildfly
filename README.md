@@ -7,11 +7,7 @@ This role installs Wildfly's application runtime.
 ## Role Variables
 
 It's important to change the bind addresses to localhost or internal network in
-production environments. The management user is also intended for
-non-production environments, so you must change these variables for production
-or undefine them and the user creation task will be skipped. You can also set
-the variable `wildfly_management_user_overwrite` to `no` to avoid the user
-creation or override and have the correct change status.
+production environments.
 
 Defaults:
 
@@ -71,8 +67,12 @@ Defaults:
         security-realm="ManagementRealm"/>'
 
     # Manually defined variables
-    # wildfly_management_user: admin
-    # wildfly_management_password: admin
+    # wildfly_app_users:
+    #   - name: user
+    #     password: secret_password
+    # wildfly_management_users:
+    #   - name: admin
+    #     password: secret_password
     # wildfly_custom_properties:
     #   custom.property: custom java property, goes into {{ wildfly_conf_dir }}/wildfly.properties
     # wildfly_custom_environment:
@@ -88,7 +88,7 @@ Defaults:
 
 It's recommended that you create Wildfly's admin user separately as follows:
 
-    $ ansible-playbook main.yml --extra-vars "wildfly_management_user=admin wildfly_management_password=admin"
+    $ ansible-playbook main.yml --extra-vars '{"wildfly_management_users":[{"name":"admin","password":"secret_password"}]}'
 
 ## SSL Support
 
