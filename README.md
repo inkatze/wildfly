@@ -27,6 +27,8 @@ Defaults:
     wildfly_install_dir: /opt
     wildfly_dir: "{{ wildfly_install_dir }}/{{ wildfly_name }}"
 
+    wildfly_temp_dir: /tmp/wildfly
+
     wildfly_console_log_dir: "/var/log/wildfly"
     wildfly_console_log_file: "console.log"
     wildfly_console_log: "{{ wildfly_console_log_dir }}/\

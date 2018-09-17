@@ -43,12 +43,14 @@ provisioner:
           wildfly_messaging_group_address: 231.7.7.9
         wildfly_custom_environment:
           SHUTDOWN_WAIT: 3
+        wildfly_temp_dir: /tmp/wildfly_temp
       wildfly-centos6-9.0.1:
         wildfly_version: 9.0.1.Final
         wildfly_custom_properties:
           jboss.node.name: wildfly
         wildfly_custom_environment:
           SHUTDOWN_WAIT: 3
+        wildfly_temp_dir: /tmp/wildfly_temp
       wildfly-centos6-10.1.0:
         wildfly_version: 10.1.0.Final
       wildfly-centos7-8.2.1:
@@ -71,6 +73,7 @@ provisioner:
         wildfly_custom_environment:
           STARTUP_WAIT: 2
           SHUTDOWN_WAIT: 2
+        wildfly_temp_dir: /opt/wildfly/standalone/tmp
 
   lint:
     name: ansible-lint
