@@ -38,13 +38,17 @@
     - restart wildfly
     - change standalone data mode
 
-- name: Copy wildfly systemd unit file
-  template: src=wildfly.service.j2 dest={{ wildfly_systemd_dir }}/wildfly.service owner=root
-            group=root mode=0640
+- block:
+  - name: Copy wildfly systemd unit file
+    template: src=wildfly.service.j2 dest={{ wildfly_systemd_dir }}/wildfly.service owner=root
+              group=root mode=0640
+    notify:
+        - restart wildfly
+        - change standalone data mode
+  - name: systemd reload
+    systemd:
+      daemon_reload: yes
   when: ansible_service_mgr == 'systemd'
-  notify:
-    - restart wildfly
-    - change standalone data mode
 
 - block:
   - name: Open wildfly management http tcp port
