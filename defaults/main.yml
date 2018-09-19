@@ -81,3 +81,5 @@ wildfly_https_listener: '
 
 wildfly_custom_properties: {}
 wildfly_custom_environment: {}
+
+wildfly_temp_dir: /tmp/wildfly
