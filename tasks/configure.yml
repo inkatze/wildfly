@@ -86,8 +86,10 @@
     - name: Enable and start the service
       service:
         name: wildfly
-        state: started
+        state: restarted
         enabled: yes
+      changed_when: False
+
     - name: Wait for wildfly to start
       wait_for:
         path: "{{ wildfly_dir }}/standalone/log/server.log"
