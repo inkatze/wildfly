@@ -88,6 +88,8 @@
         name: wildfly
         state: restarted
         enabled: yes
+      changed_when: False
+
     - name: Wait for wildfly to start
       wait_for:
         path: "{{ wildfly_dir }}/standalone/log/server.log"
