@@ -86,7 +86,7 @@
     - name: Enable and start the service
       service:
         name: wildfly
-        state: started
+        state: restarted
         enabled: yes
     - name: Wait for wildfly to start
       wait_for:
