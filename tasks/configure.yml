@@ -9,6 +9,19 @@
     group: '{{ wildfly_group }}'
     mode: '0750'
 
+- name: Create wildfly log directories
+  file:
+    path: '{{ item }}'
+    state: directory
+    owner: '{{ wildfly_user }}'
+    group: '{{ wildfly_group }}'
+    mode: '0750'
+  loop:
+    - "{{ wildfly_log_dir }}"
+    - "{{ wildfly_console_log_dir }}"
+    - "{{ wildfly_boot_log_dir }}"
+    - "{{ wildfly_server_log_dir }}"
+
 - name: Copy wildfly configuration
   template:
     src: wildfly.conf.j2
@@ -90,7 +103,7 @@
         enabled: yes
     - name: Wait for wildfly to start
       wait_for:
-        path: "{{ wildfly_dir }}/standalone/log/server.log"
+        path: "{{ wildfly_server_log }}"
         search_regex: 'started in'
   when: wildfly_manage_service
 
