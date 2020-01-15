@@ -5,6 +5,7 @@ wildfly_manage_java_pkg: true
 wildfly_manage_firewall: true
 wildfly_manage_standalone_data: true
 wildfly_manage_service: true
+wildfly_manage_configuration: true
 wildfly_remove_download_file: true
 
 wildfly_version: 10.0.0.Final
@@ -30,10 +31,17 @@ wildfly_create_symlink: true
 
 wildfly_init_src_path: "{{ 'docs/contrib/scripts' if wildfly_major_v | version_compare('10', '>=') else 'bin' }}"
 
-wildfly_console_log_dir: "/var/log/wildfly"
+wildfly_log_dir: "/var/log/wildfly"
+wildfly_console_log_dir: "{{ wildfly_log_dir }}"
 wildfly_console_log_file: "console.log"
 wildfly_console_log: "{{ wildfly_console_log_dir }}/\
                       {{ wildfly_console_log_file }}"
+wildfly_boot_log_dir: "{{ wildfly_log_dir }}"
+wildfly_boot_log_file: "boot.log"
+wildfly_boot_log: "{{ wildfly_console_log_dir }}/{{ wildfly_boot_log_file }}"
+wildfly_server_log_dir: "{{ wildfly_log_dir }}"
+wildfly_server_log_file: "server.log"
+wildfly_server_log: "{{ wildfly_server_log_dir }}/{{ wildfly_server_log_file }}"
 
 wildfly_conf_dir: /etc/wildfly
 wildfly_standalone_config_file: standalone.xml
@@ -81,3 +89,5 @@ wildfly_https_listener: '
 
 wildfly_custom_properties: {}
 wildfly_custom_environment: {}
+
+wildfly_temp_dir: /tmp/wildfly

@@ -9,6 +9,10 @@ jboss.server.temp.dir=/tmp/wildfly
 {% if wildfly_home != '' %}
 jboss.server.data.dir={{ wildfly_home }}
 {% endif %}
+jboss.server.temp.dir={{ wildfly_temp_dir }}
+jboss.boot.log.file={{ wildfly_boot_log }}
+jboss.server.log.file={{ wildfly_server_log }}
+jboss.server.log.dir={{ wildfly_server_log_dir }}
 {% if wildfly_node_name %}
 jboss.node.name={{ wildfly_node_name }}
 {% endif %}
