@@ -91,7 +91,7 @@
       permanent: yes
       immediate: yes
       state: enabled
-  when: ansible_distribution_version|version_compare(7, '=') and wildfly_manage_firewall
+  when: ansible_distribution_major_version is version('7', '=') and wildfly_manage_firewall 
 
 - meta: flush_handlers
 
