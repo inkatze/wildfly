@@ -4,13 +4,13 @@ galaxy_info:
   author: Juan Diego Romero González
   description: Installs Wildfly's application runtime
   license: BSD
-  min_ansible_version: 2.2
+  min_ansible_version: 2.5
   platforms:
   - name: EL
     versions:
     - 6
     - 7
-  categories:
+  galaxy_tags:
   - development
   - web
 dependencies: []
