@@ -63,6 +63,14 @@
       daemon_reload: yes
   when: ansible_service_mgr == 'systemd'
 
+- name: Change cli parse parametgers mode
+  replace:
+    dest: "{{ wildfly_dir }}/bin/jboss-cli.xml"
+    regexp: "<resolve-parameter-values> *(true|false)"
+    replace: "<resolve-parameter-values>{{ wildfly_cli_resolve_param_values }}"
+  when: wildfly_configure_cli_resolve_param_values
+
+
 - block:
   - name: Open wildfly management http tcp port
     firewalld:
