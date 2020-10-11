@@ -22,6 +22,7 @@
     get_url:
       url: '{{ wildfly_download_url }}'
       dest: '/var/tmp/{{ wildfly_download_file }}'
+      mode: "g=r,o=r"
       validate_certs: '{{ wildfly_download_validate_certs }}'
     delegate_to: localhost
   - name: Copy wildfly to remote server

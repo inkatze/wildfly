@@ -9,7 +9,7 @@
   tasks:
     - name: create a group of all hosts by operating system
       group_by:
-        key: "{{ ansible_distribution}}-{{ ansible_distribution_major_version }}"
+        key: "{{ ansible_distribution}}{{ ansible_distribution_major_version }}"
 
 # - hosts: CentOS-6
 #   tasks:
@@ -18,7 +18,7 @@
 #         name: initscripts
 #         state: present
 
-- hosts: CentOS-7
+- hosts: CentOS7
   tasks:
     - name: remove requiretty from /etc/sudoers
       lineinfile:
@@ -35,5 +35,4 @@
     - debug:
         msg: "wildfly_version is {{ wildfly_version }}"
   roles:
-#    - role: inkatze.wildfly
-    - role: wildfly
+    - role: inkatze.wildfly
