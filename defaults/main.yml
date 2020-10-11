@@ -7,6 +7,7 @@ wildfly_manage_standalone_data: true
 wildfly_manage_service: true
 wildfly_manage_configuration: true
 wildfly_remove_download_file: true
+wildfly_download_local: false
 
 wildfly_version: 10.0.0.Final
 wildfly_major_v: "{{ wildfly_version.partition('.')[0] }}"

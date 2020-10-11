@@ -37,8 +37,8 @@ platforms:
         - /sys/fs/cgroup:/sys/fs/cgroup:ro
     
  
-ansible:
-  playbook: playbook.yml
+#ansible:
+#  playbook: playbook.yml
 
 # lint:
 #   name: yamllint
@@ -75,6 +75,7 @@ provisioner:
         wildfly_version: 20.0.1.Final
     group_vars:
       all:
+        wildfly_download_local: true
         wildfly_manage_firewall: false
         wildfly_remove_download_file: False
         wildfly_management_users:
