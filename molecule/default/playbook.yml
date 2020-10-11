@@ -11,12 +11,12 @@
       group_by:
         key: "{{ ansible_distribution}}-{{ ansible_distribution_major_version }}"
 
-- hosts: CentOS-6
-  tasks:
-    - name: install initscripts
-      package:
-        name: initscripts
-        state: present
+# - hosts: CentOS-6
+#   tasks:
+#     - name: install initscripts
+#       package:
+#         name: initscripts
+#         state: present
 
 - hosts: CentOS-7
   tasks:
@@ -27,6 +27,7 @@
         state: absent
 
 - hosts: all
+  become: yes
   any_errors_fatal: true
   pre_tasks:
     - debug:
@@ -34,4 +35,5 @@
     - debug:
         msg: "wildfly_version is {{ wildfly_version }}"
   roles:
-    - role: inkatze.wildfly
+#    - role: inkatze.wildfly
+    - role: wildfly

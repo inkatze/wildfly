@@ -5,14 +5,15 @@ driver:
   name: docker
 
 platforms:
-    - name: wildfly-centos6-8.2.1
-      image: centos:6.8
+# # CenOS 6 End Of Life November 30th, 2020.
+#     - name: wildfly-centos6-8.2.1
+#       image: centos:6.8
 
-    - name: wildfly-centos6-9.0.1
-      image: centos:6.8
+#     - name: wildfly-centos6-9.0.1
+#       image: centos:6.8
 
-    - name: wildfly-centos6-10.1.0
-      image: centos:6.8
+#     - name: wildfly-centos6-10.1.0
+#       image: centos:6.8
 
     - name: wildfly-centos7-8.2.1
       image: milcom/centos7-systemd:latest
@@ -25,13 +26,23 @@ platforms:
     - name: wildfly-centos7-10.1.0
       image: milcom/centos7-systemd:latest
       privileged: True
-
+    
+    - name: wildfly-centos8-20.0.1
+      image: centos:8
+      command: /sbin/init
+      tmpfs:
+        - /run
+        - /tmp
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    
+ 
 ansible:
   playbook: playbook.yml
 
-lint:
-  name: yamllint
-  enabled: False
+# lint:
+#   name: yamllint
+#   enabled: False
 
 provisioner:
   name: ansible
@@ -59,8 +70,12 @@ provisioner:
         wildfly_version: 9.0.1.Final
       wildfly-centos7-10.1.0:
         wildfly_version: 10.1.0.Final
+      wildfly-centos8-20.0.1:
+        ansible_user: ansible
+        wildfly_version: 20.0.1.Final
     group_vars:
       all:
+        wildfly_manage_firewall: false
         wildfly_remove_download_file: False
         wildfly_management_users:
           - { name: 'david', password: 'ruomlig' }
@@ -75,8 +90,9 @@ provisioner:
           SHUTDOWN_WAIT: 2
         wildfly_temp_dir: /opt/wildfly/standalone/tmp
 
-  lint:
-    name: ansible-lint
+  lint: |
+    set -e
+    ansible-lint
 
 scenario:
   name: default
