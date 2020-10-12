@@ -43,6 +43,13 @@ platforms:
 # lint:
 #   name: yamllint
 #   enabled: False
+test_sequence:
+  - destroy
+  - create
+  - converge
+#  - idempotence
+  - lint
+  - verify
 
 provisioner:
   name: ansible
