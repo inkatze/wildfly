@@ -10,6 +10,8 @@
     - name: create a group of all hosts by operating system
       group_by:
         key: "{{ ansible_distribution}}{{ ansible_distribution_major_version }}"
+      register: result
+    - debug: msg="{{ result }}" 
 
 # - hosts: CentOS-6
 #   tasks:
