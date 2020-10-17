@@ -5,14 +5,14 @@ driver:
   name: docker
 
 platforms:
-    - name: wildfly-centos6-8.2.1
-      image: centos:6.8
+    # - name: wildfly-centos6-8.2.1
+    #   image: centos:6.8
 
-    - name: wildfly-centos6-9.0.1
-      image: centos:6.8
+    # - name: wildfly-centos6-9.0.1
+    #   image: centos:6.8
 
-    - name: wildfly-centos6-10.1.0
-      image: centos:6.8
+    # - name: wildfly-centos6-10.1.0
+    #   image: centos:6.8
 
     - name: wildfly-centos7-8.2.1
       image: milcom/centos7-systemd:latest

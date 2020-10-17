@@ -1,11 +1,11 @@
 ---
 
-- hosts: CentOS_6
-  tasks:
-    - name: install initscripts
-      package:
-        name: initscripts
-        state: present
+# - hosts: CentOS_6
+#   tasks:
+#     - name: install initscripts
+#       package:
+#         name: initscripts
+#         state: present
 
 - hosts: CentOS_7
   tasks:
