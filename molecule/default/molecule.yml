@@ -5,15 +5,6 @@ driver:
   name: docker
 
 platforms:
-    # - name: wildfly-centos6-8.2.1
-    #   image: centos:6.8
-
-    # - name: wildfly-centos6-9.0.1
-    #   image: centos:6.8
-
-    # - name: wildfly-centos6-10.1.0
-    #   image: centos:6.8
-
     - name: wildfly-centos7-8.2.1
       image: milcom/centos7-systemd:latest
       privileged: True
@@ -26,12 +17,14 @@ platforms:
       image: milcom/centos7-systemd:latest
       privileged: True
 
-# ansible:
-#   playbook: playbook.yml
-
-# lint:
-#   name: yamllint
-#   enabled: False
+    - name: wildfly-centos8-20.0.1
+      image: centos:8
+      command: /sbin/init
+      tmpfs:
+        - /run
+        - /tmp
+      volumes:
+        - /sys/fs/cgroup:/sys/fs/cgroup:ro
 
 provisioner:
   name: ansible
@@ -59,6 +52,9 @@ provisioner:
         wildfly_version: 9.0.1.Final
       wildfly-centos7-10.1.0:
         wildfly_version: 10.1.0.Final
+      wildfly-centos8-20.0.1:
+        ansible_user: ansible
+        wildfly_version: 20.0.1.Final
     group_vars:
       all:
         wildfly_remove_download_file: False

@@ -1,12 +1,5 @@
 ---
 
-# - hosts: CentOS_6
-#   tasks:
-#     - name: install initscripts
-#       package:
-#         name: initscripts
-#         state: present
-
 - hosts: CentOS_7
   tasks:
     - name: remove requiretty from /etc/sudoers
@@ -16,6 +9,7 @@
         state: absent
 
 - hosts: all
+  become: yes
   any_errors_fatal: true
   pre_tasks:
     - debug:
