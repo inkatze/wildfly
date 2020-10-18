@@ -7,9 +7,9 @@ name = "pypi"
 pre_commit = "*"
 
 [packages]
-molecule = "*"
-docker-py = "*"
+molecule = {extras = ["docker"],version = "*"}
 ansible-lint = "*"
+yamllint = "*"
 
 [requires]
 python_version = "2.7"
