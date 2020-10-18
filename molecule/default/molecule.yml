@@ -26,12 +26,12 @@ platforms:
       image: milcom/centos7-systemd:latest
       privileged: True
 
-ansible:
-  playbook: playbook.yml
+# ansible:
+#   playbook: playbook.yml
 
-lint:
-  name: yamllint
-  enabled: False
+# lint:
+#   name: yamllint
+#   enabled: False
 
 provisioner:
   name: ansible
@@ -75,8 +75,10 @@ provisioner:
           SHUTDOWN_WAIT: 2
         wildfly_temp_dir: /opt/wildfly/standalone/tmp
 
-  lint:
-    name: ansible-lint
+  lint: |
+      set -e
+      yamllint .
+      ansible-lint
 
 scenario:
   name: default
