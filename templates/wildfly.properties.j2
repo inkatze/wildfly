@@ -5,6 +5,10 @@ jboss.management.https.port={{ wildfly_manage_https_port }}
 jboss.http.port={{ wildfly_http_port }}
 jboss.https.port={{ wildfly_https_port }}
 jboss.bind.address.management={{ wildfly_management_bind_address }}
+jboss.server.temp.dir=/tmp/wildfly
+{% if wildfly_home != '' %}
+jboss.server.data.dir={{ wildfly_home }}
+{% endif %}
 jboss.server.temp.dir={{ wildfly_temp_dir }}
 jboss.boot.log.file={{ wildfly_boot_log }}
 jboss.server.log.file={{ wildfly_server_log }}

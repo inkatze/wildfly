@@ -14,6 +14,7 @@ wildfly_major_v: "{{ wildfly_version.partition('.')[0] }}"
 wildfly_manage_user: true
 wildfly_user: wildfly
 wildfly_group: wildfly
+wildfly_home: ''
 
 wildfly_base_download_url: http://download.jboss.org/wildfly
 wildfly_name: wildfly-{{ wildfly_version }}
