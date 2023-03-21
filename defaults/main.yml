@@ -91,3 +91,6 @@ wildfly_custom_properties: {}
 wildfly_custom_environment: {}
 
 wildfly_temp_dir: /tmp/wildfly
+
+wildfly_configure_cli_resolve_param_values: false
+wildfly_cli_resolve_param_values: "false"
